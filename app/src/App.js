@@ -1,15 +1,15 @@
 import React from "react";
 import "./App.css";
-import Adder from "./components/Adder";
+import AddPlacemark from "./components/AddPlacemark";
 import Auth from "./components/auth/Auth";
 import ListPlacemarks from "./components/ListPlacemarks";
-import Mapper from "./components/Mapper";
+import YandexMap from "./components/YandexMap";
 import axios from "axios";
 
 function App() {
     const [noPlacemarks, setNoPlacemarks] = React.useState(false);
     const [passedAuthorization, setPassedAuthorization] = React.useState(false);
-    const [placemarker, setPlacemarker] = React.useState([]);
+    const [dataPlacemarks, setPlacemarker] = React.useState([]);
     const [hidePlacemarker, setHidePlacemarker] = React.useState(false);
     const [newCoordinates, setNewCoordinates] = React.useState(false);
 
@@ -61,16 +61,16 @@ function App() {
                             </h3>
                         </div>
 
-                        <Adder
+                        <AddPlacemark
                             setNoPlacemarks={setNoPlacemarks}
                             setPlacemarker={setPlacemarker}
-                            placemarker={placemarker}
+                            dataPlacemarks={dataPlacemarks}
                         />
 
                         <div style={{ marginBottom: 25 }}>
                             {noPlacemarks
                                 ? noPlacemarks
-                                : placemarker.map((item, index) => (
+                                : dataPlacemarks.map((item, index) => (
                                       <ListPlacemarks
                                           key={index}
                                           name={item.name}
@@ -88,8 +88,8 @@ function App() {
                         </div>
                     </div>
                     <div style={{ float: "right" }}>
-                        <Mapper
-                            placemarker={placemarker}
+                        <YandexMap
+                            dataPlacemarks={dataPlacemarks}
                             newCoordinates={newCoordinates}
                         />
                     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
-function Mapper({ placemarker, newCoordinates }) {
+function YandexMap({ dataPlacemarks, newCoordinates }) {
     const [currentLatitude, setLatitude] = React.useState(false);
     const [currentLongitude, setLongitude] = React.useState(false);
 
@@ -40,7 +40,7 @@ function Mapper({ placemarker, newCoordinates }) {
                             }}
                         />
 
-                        {placemarker.map((item, index) => (
+                        {dataPlacemarks.map((item, index) => (
                             <Placemark
                                 key={index}
                                 modules={["geoObject.addon.balloon"]}
@@ -59,4 +59,4 @@ function Mapper({ placemarker, newCoordinates }) {
     );
 }
 
-export default Mapper;
+export default YandexMap;

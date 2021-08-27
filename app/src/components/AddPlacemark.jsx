@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-function Adder({ setNoPlacemarks, setPlacemarker, placemarker }) {
+function AddPlacemark({ setNoPlacemarks, setPlacemarker, dataPlacemarks }) {
     const createBal = (e) => {
         e.preventDefault();
 
@@ -38,8 +38,8 @@ function Adder({ setNoPlacemarks, setPlacemarker, placemarker }) {
 
                 debugger;
 
-                if (placemarker.length > 0) {
-                    setPlacemarker([...placemarker, initialValue[0]]);
+                if (dataPlacemarks.length > 0) {
+                    setPlacemarker([...dataPlacemarks, initialValue[0]]);
                 } else {
                     setPlacemarker(initialValue);
                 }
@@ -62,4 +62,4 @@ function Adder({ setNoPlacemarks, setPlacemarker, placemarker }) {
     );
 }
 
-export default Adder;
+export default AddPlacemark;
