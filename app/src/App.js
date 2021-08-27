@@ -2,12 +2,12 @@ import React from "react";
 import "./App.css";
 import Adder from "./components/Adder";
 import Auth from "./components/auth/Auth";
-import BalList from "./components/BalList";
+import ListPlacemarks from "./components/ListPlacemarks";
 import Mapper from "./components/Mapper";
 import axios from "axios";
 
 function App() {
-    const [noTags, setNoTags] = React.useState(false);
+    const [noPlacemarks, setNoPlacemarks] = React.useState(false);
     const [passedAuthorization, setPassedAuthorization] = React.useState(false);
     const [placemarker, setPlacemarker] = React.useState([]);
     const [hidePlacemarker, setHidePlacemarker] = React.useState(false);
@@ -15,11 +15,11 @@ function App() {
 
     React.useEffect(() => {
         if (passedAuthorization) {
-            getBal();
+            getBaloons();
         }
     }, [passedAuthorization]);
 
-    const getBal = () => {
+    const getBaloons = () => {
         let id_user = localStorage.getItem("id_user");
 
         axios
@@ -43,7 +43,7 @@ function App() {
 
                     setPlacemarker(initialValue);
                 } else {
-                    setNoTags("Меток нет");
+                    setNoPlacemarks("Меток нет");
                 }
             });
     };
@@ -62,22 +62,22 @@ function App() {
                         </div>
 
                         <Adder
-                            setNoTags={setNoTags}
+                            setNoPlacemarks={setNoPlacemarks}
                             setPlacemarker={setPlacemarker}
                             placemarker={placemarker}
                         />
 
                         <div style={{ marginBottom: 25 }}>
-                            {noTags
-                                ? noTags
+                            {noPlacemarks
+                                ? noPlacemarks
                                 : placemarker.map((item, index) => (
-                                      <BalList
+                                      <ListPlacemarks
                                           key={index}
                                           name={item.name}
                                           latitude={item.latitude}
                                           longitude={item.longitude}
-                                          setNoTags={setNoTags}
-                                          noTags={noTags}
+                                          setNoPlacemarks={setNoPlacemarks}
+                                          noPlacemarks={noPlacemarks}
                                           setHidePlacemarker={
                                               setHidePlacemarker
                                           }

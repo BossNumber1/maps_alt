@@ -1,40 +1,44 @@
 import React from "react";
 import axios from "axios";
 
-function BalList({
+function ListPlacemarks({
     name,
     latitude,
     longitude,
-    setNoTags,
-    noTags,
+    setNoPlacemarks,
+    noPlacemarks,
     setHidePlacemarker,
     hidePlacemarker,
     setNewCoordinates,
 }) {
-    const [show, setShow] = React.useState(false);
-    const [nam, setNam] = React.useState(name || "");
-    const [shir, setShir] = React.useState(latitude || "");
-    const [dol, setDol] = React.useState(longitude || "");
+    const [edit, setEdit] = React.useState(false);
+    const [namePlacemarkSpecific, setNamePlacemarkSpecific] = React.useState(
+        name || ""
+    );
+    const [latitudePlacemarkSpecific, setLatitudePlacemarkSpecific] =
+        React.useState(latitude || "");
+    const [longitudePlacemarkSpecific, setLongitudePlacemarkSpecific] =
+        React.useState(longitude || "");
 
-    const upgrade = () => {
+    const updateBaloon = () => {
         axios
             .post("http://localhost:80/updateBaloon/", {
                 id_user: localStorage.getItem("id_user"),
-                name: nam,
+                name: namePlacemarkSpecific,
                 oldName: name,
-                latitude: shir,
-                longitude: dol,
+                latitude: latitudePlacemarkSpecific,
+                longitude: longitudePlacemarkSpecific,
             })
             .then(() => {
-                setShow(false);
+                setEdit(false);
             });
     };
 
-    const showForm = () => {
-        setShow(true);
+    const showEditForm = () => {
+        setEdit(true);
     };
 
-    const delBal = () => {
+    const deleteBaloon = () => {
         axios
             .post("http://localhost:80/deleteBaloon/", {
                 id_user: localStorage.getItem("id_user"),
@@ -42,37 +46,40 @@ function BalList({
             })
             .then(() => {
                 setHidePlacemarker(true);
-                setNoTags("Меток нет");
+                setNoPlacemarks("Меток нет");
             });
     };
 
     const changeNHandler = (e) => {
         e.preventDefault();
-        setNam(e.target.value);
+        setNamePlacemarkSpecific(e.target.value);
     };
 
     const changeLatHandler = (e) => {
         e.preventDefault();
-        setShir(e.target.value);
+        setLatitudePlacemarkSpecific(e.target.value);
     };
 
     const changeLongHandler = (e) => {
         e.preventDefault();
-        setDol(e.target.value);
+        setLongitudePlacemarkSpecific(e.target.value);
     };
 
     return (
         <>
             {!hidePlacemarker ? (
                 <div style={{ marginBottom: 25 }}>
-                    {!noTags && (
+                    {!noPlacemarks && (
                         <>
                             <div style={{ display: "flex", marginBottom: 25 }}>
-                                {!show ? (
+                                {!edit ? (
                                     <>
                                         <div
                                             onClick={() =>
-                                                setNewCoordinates([shir, dol])
+                                                setNewCoordinates([
+                                                    latitudePlacemarkSpecific,
+                                                    longitudePlacemarkSpecific,
+                                                ])
                                             }
                                             className="placemark"
                                         >
@@ -80,21 +87,23 @@ function BalList({
                                                 <b>Название</b>: {name}
                                             </div>
                                             <div>
-                                                <b>Ширина</b>: {shir}
+                                                <b>Ширина</b>:{" "}
+                                                {latitudePlacemarkSpecific}
                                             </div>
                                             <div>
-                                                <b>Долгота</b>: {dol}
+                                                <b>Долгота</b>:{" "}
+                                                {longitudePlacemarkSpecific}
                                             </div>
                                         </div>
                                         <form>
                                             <button
-                                                onClick={showForm}
+                                                onClick={showEditForm}
                                                 style={{ marginLeft: 10 }}
                                             >
                                                 Редактировать
                                             </button>
                                             <button
-                                                onClick={delBal}
+                                                onClick={deleteBaloon}
                                                 style={{ marginLeft: 10 }}
                                             >
                                                 Удалить
@@ -105,27 +114,27 @@ function BalList({
                                     <form>
                                         <input
                                             type="text"
-                                            value={nam}
+                                            value={namePlacemarkSpecific}
                                             onChange={changeNHandler}
                                         />
                                         <input
                                             type="text"
-                                            value={shir}
+                                            value={latitudePlacemarkSpecific}
                                             onChange={changeLatHandler}
                                         />
                                         <input
                                             type="text"
-                                            value={dol}
+                                            value={longitudePlacemarkSpecific}
                                             onChange={changeLongHandler}
                                         />
                                         <button
-                                            onClick={upgrade}
+                                            onClick={updateBaloon}
                                             style={{ marginLeft: 10 }}
                                         >
                                             Сохранить
                                         </button>
                                         <button
-                                            onClick={delBal}
+                                            onClick={deleteBaloon}
                                             style={{ marginLeft: 10 }}
                                         >
                                             Удалить
@@ -143,4 +152,4 @@ function BalList({
     );
 }
 
-export default BalList;
+export default ListPlacemarks;

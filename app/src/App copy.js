@@ -4,8 +4,9 @@ import { YMaps, Map, Placemark } from "react-yandex-maps";
 import axios from "axios";
 
 function App() {
-    const [shir, setShir] = React.useState(false);
-    const [dol, setDol] = React.useState(false);
+    const [latitudePlacemarkSpecific, setLatitudePlacemarkSpecific] =
+        React.useState(false);
+    const [dol, setLongitudePlacemarkSpecific] = React.useState(false);
 
     const [up, setUp] = React.useState(false);
 
@@ -16,8 +17,8 @@ function App() {
 
     React.useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
-            setShir(position.coords.latitude);
-            setDol(position.coords.longitude);
+            setLatitudePlacemarkSpecific(position.coords.latitude);
+            setLongitudePlacemarkSpecific(position.coords.longitude);
         });
 
         axios
@@ -91,39 +92,44 @@ function App() {
     //     }
     // }
 
- React.useEffect(() => {
-     const upg = () => {
-        setUp("true")
+    React.useEffect(() => {
+        const upg = () => {
+            setUp("true");
 
-         axios
-             .post("http://localhost:80/updateBaloon/", {
-                 id_user: id_user,
-                 name: "first",
-                 coordinats: JSON.stringify(coordinates),
-             })
-             .then((resus) => {
-                 alert(resus.data);
-             });
-     }
- }, [])
+            axios
+                .post("http://localhost:80/updateBaloon/", {
+                    id_user: id_user,
+                    name: "first",
+                    coordinats: JSON.stringify(coordinates),
+                })
+                .then((resus) => {
+                    alert(resus.data);
+                });
+        };
+    }, []);
 
     return (
         <div className="App">
             привеееет
             <button onClick={() => setUp("true")}>Обновить</button>
-            {shir ? (
+            {latitudePlacemarkSpecific ? (
                 <YMaps>
-                    <Map defaultState={{ center: [shir, dol], zoom: 9 }}>
+                    <Map
+                        defaultState={{
+                            center: [latitudePlacemarkSpecific, dol],
+                            zoom: 9,
+                        }}
+                    >
                         {/* // <Placemark {...placeMark} /> */}
                         {/* <Placemark
-                            geometry={[shir, dol]}
+                            geometry={[latitudePlacemarkSpecific, dol]}
                             options={{
                                 balloonContentLayout: "this.state.template",
                             }}
                         /> */}
                         <Placemark
                             modules={["geoObject.addon.balloon"]}
-                            geometry={[shir, dol]}
+                            geometry={[latitudePlacemarkSpecific, dol]}
                             properties={{
                                 balloonContent: "Название локации из списка",
                             }}
@@ -140,11 +146,11 @@ function App() {
 export default App;
 
 //  <YMaps>
-//                     // <Map defaultState={{ center: [shir, dol], zoom: 9 }}>
+//                     // <Map defaultState={{ center: [latitudePlacemarkSpecific, dol], zoom: 9 }}>
 
 //                         // {coordinates.map((coordinate) => (
 //                     //         // <Placemark key={0} geometry={coordinate} />
-//                     //         <Placemark key={0} geometry={[shir, dol]} />
+//                     //         <Placemark key={0} geometry={[latitudePlacemarkSpecific, dol]} />
 //                     //     ))}
 //                     // </Map>
 //                     <Map state={mapState}>
