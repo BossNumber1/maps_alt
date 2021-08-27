@@ -20,9 +20,9 @@ function ListPlacemarks({
     const [longitudePlacemarkSpecific, setLongitudePlacemarkSpecific] =
         React.useState(longitude || "");
 
-    const updateBaloon = () => {
+    const updatePlacemark = () => {
         axios
-            .post("http://localhost:80/updateBaloon/", {
+            .post("http://localhost:80/updatePlacemark/", {
                 id_user: localStorage.getItem("id_user"),
                 name: namePlacemarkSpecific,
                 oldName: name,
@@ -38,9 +38,9 @@ function ListPlacemarks({
         setEdit(true);
     };
 
-    const deleteBaloon = () => {
+    const deletePlacemark = () => {
         axios
-            .post("http://localhost:80/deleteBaloon/", {
+            .post("http://localhost:80/deletePlacemark/", {
                 id_user: localStorage.getItem("id_user"),
                 name: name,
             })
@@ -50,17 +50,17 @@ function ListPlacemarks({
             });
     };
 
-    const changeNHandler = (e) => {
+    const changeNameHandler = (e) => {
         e.preventDefault();
         setNamePlacemarkSpecific(e.target.value);
     };
 
-    const changeLatHandler = (e) => {
+    const changeLatitudeHandler = (e) => {
         e.preventDefault();
         setLatitudePlacemarkSpecific(e.target.value);
     };
 
-    const changeLongHandler = (e) => {
+    const changeLongitudeHandler = (e) => {
         e.preventDefault();
         setLongitudePlacemarkSpecific(e.target.value);
     };
@@ -103,7 +103,7 @@ function ListPlacemarks({
                                                 Редактировать
                                             </button>
                                             <button
-                                                onClick={deleteBaloon}
+                                                onClick={deletePlacemark}
                                                 style={{ marginLeft: 10 }}
                                             >
                                                 Удалить
@@ -115,26 +115,26 @@ function ListPlacemarks({
                                         <input
                                             type="text"
                                             value={namePlacemarkSpecific}
-                                            onChange={changeNHandler}
+                                            onChange={changeNameHandler}
                                         />
                                         <input
                                             type="text"
                                             value={latitudePlacemarkSpecific}
-                                            onChange={changeLatHandler}
+                                            onChange={changeLatitudeHandler}
                                         />
                                         <input
                                             type="text"
                                             value={longitudePlacemarkSpecific}
-                                            onChange={changeLongHandler}
+                                            onChange={changeLongitudeHandler}
                                         />
                                         <button
-                                            onClick={updateBaloon}
+                                            onClick={updatePlacemark}
                                             style={{ marginLeft: 10 }}
                                         >
                                             Сохранить
                                         </button>
                                         <button
-                                            onClick={deleteBaloon}
+                                            onClick={deletePlacemark}
                                             style={{ marginLeft: 10 }}
                                         >
                                             Удалить

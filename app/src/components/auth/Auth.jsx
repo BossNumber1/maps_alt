@@ -19,18 +19,14 @@ function Auth({ setPassedAuthorization }) {
                 login: login,
             })
             .then((res) => {
-                if (res.data === "out") {
+                if (res.data === "empty") {
                     axios
                         .post("http://localhost:80/auth/", {
                             login: login,
                             password: password,
                         })
-                        .then((resus) => {
-                            debugger;
-                            if (resus.data === "true") {
-                                debugger;
-                                alert("Вы зареганы");
-
+                        .then((resultat) => {
+                            if (resultat.data === "true") {
                                 localStorage.setItem("login", login);
                                 localStorage.setItem("password", password);
 
@@ -39,7 +35,7 @@ function Auth({ setPassedAuthorization }) {
                                         login: localStorage.getItem("login"),
                                     })
                                     .then((res) => {
-                                        if (res.data !== "out") {
+                                        if (res.data !== "empty") {
                                             let id_user = JSON.parse(
                                                 res.data
                                             ).id;
@@ -61,10 +57,7 @@ function Auth({ setPassedAuthorization }) {
     return (
         <>
             <h1>Регистрация</h1>
-            <p>
-                В этом приложении вы можете сохранять места на карте и потом
-                смотреть дорогу к ним.
-            </p>
+            <p>В данном приложении можно сохранять места на карте.</p>
             <form>
                 <div>
                     <input type="text" id="login" placeholder="Логин" />
@@ -75,7 +68,7 @@ function Auth({ setPassedAuthorization }) {
                 <p>
                     <input
                         type="submit"
-                        value="Зарегаться"
+                        value="Зарегистрироваться"
                         onClick={submitHandler}
                     />
                 </p>

@@ -2,41 +2,38 @@ import React from "react";
 import axios from "axios";
 
 function AddPlacemark({ setNoPlacemarks, setPlacemarker, dataPlacemarks }) {
-    const createBal = (e) => {
+    const createPlacemark = (e) => {
         e.preventDefault();
 
-        let nameAdder = document.getElementById("nameAdder").value;
-        let latitudeAdder = document.getElementById("latitudeAdder").value;
-        let longitudeAdder = document.getElementById("longitudeAdder").value;
+        let nameToAdd = document.getElementById("nameToAdd").value;
+        let latitudeToAdd = document.getElementById("latitudeToAdd").value;
+        let longitudeToAdd = document.getElementById("longitudeToAdd").value;
 
-        localStorage.setItem("nameAdder", nameAdder);
+        // localStorage.setItem("nameToAdd", nameToAdd);
 
         let id_user = localStorage.getItem("id_user");
-        debugger;
+
         axios
-            .post("http://localhost:80/saveBaloon/", {
+            .post("http://localhost:80/createPlacemark/", {
                 id_user: id_user,
-                name: nameAdder,
-                latitude: latitudeAdder,
-                longitude: longitudeAdder,
+                name: nameToAdd,
+                latitude: latitudeToAdd,
+                longitude: longitudeToAdd,
             })
             .then(() => {
-                debugger;
                 setNoPlacemarks(false);
 
-                document.getElementById("nameAdder").value = "";
-                document.getElementById("latitudeAdder").value = "";
-                document.getElementById("longitudeAdder").value = "";
+                document.getElementById("nameToAdd").value = "";
+                document.getElementById("latitudeToAdd").value = "";
+                document.getElementById("longitudeToAdd").value = "";
 
                 const initialValue = [
                     {
-                        name: nameAdder,
-                        latitude: latitudeAdder,
-                        longitude: longitudeAdder,
+                        name: nameToAdd,
+                        latitude: latitudeToAdd,
+                        longitude: longitudeToAdd,
                     },
                 ];
-
-                debugger;
 
                 if (dataPlacemarks.length > 0) {
                     setPlacemarker([...dataPlacemarks, initialValue[0]]);
@@ -44,17 +41,15 @@ function AddPlacemark({ setNoPlacemarks, setPlacemarker, dataPlacemarks }) {
                     setPlacemarker(initialValue);
                 }
             });
-
-        debugger;
     };
 
     return (
         <div style={{ marginBottom: 25 }}>
             <form>
-                <input type="text" id="nameAdder" placeholder="Имя" />
-                <input type="text" id="latitudeAdder" placeholder="Ширина" />
-                <input type="text" id="longitudeAdder" placeholder="Долгота" />
-                <button onClick={createBal} style={{ marginLeft: 10 }}>
+                <input type="text" id="nameToAdd" placeholder="Название" />
+                <input type="text" id="latitudeToAdd" placeholder="Ширина" />
+                <input type="text" id="longitudeToAdd" placeholder="Долгота" />
+                <button onClick={createPlacemark} style={{ marginLeft: 10 }}>
                     Добавить
                 </button>
             </form>

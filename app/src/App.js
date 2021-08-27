@@ -15,15 +15,15 @@ function App() {
 
     React.useEffect(() => {
         if (passedAuthorization) {
-            getBaloons();
+            getPlacemarksData();
         }
     }, [passedAuthorization]);
 
-    const getBaloons = () => {
+    const getPlacemarksData = () => {
         let id_user = localStorage.getItem("id_user");
 
         axios
-            .post("http://localhost:80/getBaloons/", {
+            .post("http://localhost:80/getPlacemarksData/", {
                 id_user: id_user,
             })
             .then((resultat) => {
