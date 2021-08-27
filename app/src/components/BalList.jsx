@@ -7,9 +7,9 @@ function BalList({
     longitude,
     setNoTags,
     noTags,
-    setHidePlm,
-    hidePlm,
-    setYohoo,
+    setHidePlacemarker,
+    hidePlacemarker,
+    setNewCoordinates,
 }) {
     const [show, setShow] = React.useState(false);
     const [nam, setNam] = React.useState(name || "");
@@ -41,7 +41,7 @@ function BalList({
                 name: name,
             })
             .then(() => {
-                setHidePlm(true);
+                setHidePlacemarker(true);
                 setNoTags("Меток нет");
             });
     };
@@ -63,7 +63,7 @@ function BalList({
 
     return (
         <>
-            {!hidePlm ? (
+            {!hidePlacemarker ? (
                 <div style={{ marginBottom: 25 }}>
                     {!noTags && (
                         <>
@@ -72,7 +72,7 @@ function BalList({
                                     <>
                                         <div
                                             onClick={() =>
-                                                setYohoo([shir, dol])
+                                                setNewCoordinates([shir, dol])
                                             }
                                             className="placemark"
                                         >

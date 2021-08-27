@@ -8,16 +8,16 @@ import axios from "axios";
 
 function App() {
     const [noTags, setNoTags] = React.useState(false);
-    const [goodAuth, setGoodAuth] = React.useState(false);
+    const [passedAuthorization, setPassedAuthorization] = React.useState(false);
     const [placemarker, setPlacemarker] = React.useState([]);
-    const [hidePlm, setHidePlm] = React.useState(false);
-    const [yohoo, setYohoo] = React.useState(false);
+    const [hidePlacemarker, setHidePlacemarker] = React.useState(false);
+    const [newCoordinates, setNewCoordinates] = React.useState(false);
 
     React.useEffect(() => {
-        if (goodAuth) {
+        if (passedAuthorization) {
             getBal();
         }
-    }, [goodAuth]);
+    }, [passedAuthorization]);
 
     const getBal = () => {
         let id_user = localStorage.getItem("id_user");
@@ -50,8 +50,8 @@ function App() {
 
     return (
         <div className="App">
-            {!goodAuth ? (
-                <Auth setGoodAuth={setGoodAuth} />
+            {!passedAuthorization ? (
+                <Auth setPassedAuthorization={setPassedAuthorization} />
             ) : (
                 <div style={{ display: "flex" }}>
                     <div style={{ float: "left" }}>
@@ -78,15 +78,20 @@ function App() {
                                           longitude={item.longitude}
                                           setNoTags={setNoTags}
                                           noTags={noTags}
-                                          setHidePlm={setHidePlm}
-                                          hidePlm={hidePlm}
-                                          setYohoo={setYohoo}
+                                          setHidePlacemarker={
+                                              setHidePlacemarker
+                                          }
+                                          hidePlacemarker={hidePlacemarker}
+                                          setNewCoordinates={setNewCoordinates}
                                       />
                                   ))}
                         </div>
                     </div>
                     <div style={{ float: "right" }}>
-                        <Mapper placemarker={placemarker} yohoo={yohoo} />
+                        <Mapper
+                            placemarker={placemarker}
+                            newCoordinates={newCoordinates}
+                        />
                     </div>
                 </div>
             )}

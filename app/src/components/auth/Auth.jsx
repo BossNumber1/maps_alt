@@ -1,12 +1,12 @@
 import React from "react";
 import axios from "axios";
 
-function Auth({ setGoodAuth }) {
+function Auth({ setPassedAuthorization }) {
     React.useEffect(() => {
         if (localStorage.getItem("login") && localStorage.getItem("id_user")) {
-            setGoodAuth(true);
+            setPassedAuthorization(true);
         }
-    }, [setGoodAuth]);
+    }, [setPassedAuthorization]);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -49,7 +49,7 @@ function Auth({ setGoodAuth }) {
                                                 id_user
                                             );
 
-                                            setGoodAuth(true);
+                                            setPassedAuthorization(true);
                                         }
                                     });
                             }

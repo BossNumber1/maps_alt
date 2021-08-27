@@ -1,7 +1,7 @@
 import React from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
-function Mapper({ placemarker, yohoo }) {
+function Mapper({ placemarker, newCoordinates }) {
     const [currentLatitude, setLatitude] = React.useState(false);
     const [currentLongitude, setLongitude] = React.useState(false);
 
@@ -15,11 +15,11 @@ function Mapper({ placemarker, yohoo }) {
     }, []);
 
     React.useEffect(() => {
-        if (yohoo) {
-            setLatitude(yohoo[0]);
-            setLongitude(yohoo[1]);
+        if (newCoordinates) {
+            setLatitude(newCoordinates[0]);
+            setLongitude(newCoordinates[1]);
         }
-    }, [yohoo, currentLatitude, currentLongitude]);
+    }, [newCoordinates, currentLatitude, currentLongitude]);
 
     return (
         <>
