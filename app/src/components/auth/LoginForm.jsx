@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-// import styles from "../Forms.module.css";
+import styles from "../../styles/Forms.module.css";
 
 const LoginForm = ({ setPassedAuthorization }) => {
     const authHandler = (e) => {
@@ -34,20 +34,26 @@ const LoginForm = ({ setPassedAuthorization }) => {
 
     return (
         <div>
-            <form>
-                <h1>Вход</h1>
+            <form className={styles.main_form}>
+                <h1 className={styles.title}>Вход</h1>
                 <input
                     type="text"
                     id="loginForRegistration"
                     placeholder="Логин"
+                    className={styles.input}
                 />
                 <input
                     type="password"
                     id="passwordForRegistration"
                     placeholder="Пароль"
+                    className={styles.input}
                 />
-                <div>
-                    <button type="submit" onClick={authHandler}>
+                <div className={styles.btn_div}>
+                    <button
+                        type="submit"
+                        onClick={authHandler}
+                        className={styles.btn}
+                    >
                         Войти
                     </button>
                 </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import LoginForm from "./LoginForm";
+import styles from "../../styles/Forms.module.css";
 
 function RegistrationForm({ setPassedAuthorization }) {
     const [showAuth, setShowAuth] = React.useState(false);
@@ -62,26 +63,35 @@ function RegistrationForm({ setPassedAuthorization }) {
         <>
             {!showAuth ? (
                 <>
-                    <h1>Регистрация</h1>
-                    <p>В данном приложении можно сохранять места на карте.</p>
-                    <form>
+                    <div style={{ textAlign: "center" }}>
+                        В данном приложении можно сохранять места на карте.
+                    </div>
+                    <form className={styles.main_form}>
+                        <h1 className={styles.title}>Регистрация</h1>
                         <div>
-                            <input type="text" id="login" placeholder="Логин" />
+                            <input
+                                type="text"
+                                id="login"
+                                placeholder="Логин"
+                                className={styles.input}
+                            />
                         </div>
                         <div>
                             <input
                                 type="password"
                                 id="password"
                                 placeholder="Пароль"
+                                className={styles.input}
                             />
                         </div>
-                        <p>
+                        <div className={styles.btn_div}>
                             <input
                                 type="submit"
                                 value="Зарегистрироваться"
                                 onClick={submitHandler}
+                                className={styles.btn}
                             />
-                        </p>
+                        </div>
                     </form>
                 </>
             ) : (
