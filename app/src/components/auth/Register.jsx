@@ -3,28 +3,29 @@ import React from "react";
 // import styles from "../Forms.module.css";
 
 const Register = ({ setPassedAuthorization }) => {
-    const hand = (e) => {
+    const authHandler = (e) => {
         e.preventDefault();
 
-        let logi = document.getElementById("log").value;
-        let pas = document.getElementById("pas").value;
+        let login = document.getElementById("loginForRegistration").value;
+        let password = document.getElementById("passwordForRegistration").value;
 
         axios
             .post("http://localhost:80/getUserData/", {
-                login: logi,
+                login: login,
             })
-            .then((res) => {
-                if (res.data === "empty") {
+            .then((resultat) => {
+                if (resultat.data === "empty") {
                     alert("Неверные данные");
                 }
 
                 if (
-                    JSON.parse(res.data).login === logi &&
-                    JSON.parse(res.data).password === pas
+                    JSON.parse(resultat.data).login === login &&
+                    JSON.parse(resultat.data).password === password
                 ) {
-                    localStorage.setItem("login", logi);
-                    localStorage.setItem("password", pas);
+                    localStorage.setItem("login", login);
+                    localStorage.setItem("password", password);
                     setPassedAuthorization(true);
+                    localStorage.removeItem("exited");
                 } else {
                     alert("Неверные данные");
                 }
@@ -35,11 +36,18 @@ const Register = ({ setPassedAuthorization }) => {
         <div>
             <form>
                 <h1>Вход</h1>
-                <input type="text" id="log" placeholder="Логин" />
-                <input type="password" id="pas" placeholder="Пароль" />
-
+                <input
+                    type="text"
+                    id="loginForRegistration"
+                    placeholder="Логин"
+                />
+                <input
+                    type="password"
+                    id="passwordForRegistration"
+                    placeholder="Пароль"
+                />
                 <div>
-                    <button type="submit" onClick={hand}>
+                    <button type="submit" onClick={authHandler}>
                         Войти
                     </button>
                 </div>

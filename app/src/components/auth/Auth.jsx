@@ -7,7 +7,7 @@ function Auth({ setPassedAuthorization }) {
     const [showAuth, setShowAuth] = React.useState(false);
 
     React.useEffect(() => {
-        if (localStorage.getItem("login") && localStorage.getItem("id_user")) {
+        if (localStorage.getItem("login") && localStorage.getItem("password")) {
             setPassedAuthorization(true);
         } else {
             if (localStorage.getItem("exited") === "true") {
@@ -21,13 +21,12 @@ function Auth({ setPassedAuthorization }) {
 
         let login = document.getElementById("login").value;
         let password = document.getElementById("password").value;
-        debugger;
+
         axios
             .post("http://localhost:80/getUserData/", {
                 login: login,
             })
             .then((res) => {
-                debugger;
                 if (res.data === "empty") {
                     axios
                         .post("http://localhost:80/auth/", {

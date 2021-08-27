@@ -13,6 +13,10 @@ function App() {
     const [hidePlacemarker, setHidePlacemarker] = React.useState(false);
     const [newCoordinates, setNewCoordinates] = React.useState(false);
 
+    // React.useEffect(() => {
+    //     localStorage.removeItem("exited");
+    // }, []);
+
     React.useEffect(() => {
         if (passedAuthorization) {
             getPlacemarksData();
@@ -53,7 +57,6 @@ function App() {
         localStorage.removeItem("password");
         localStorage.removeItem("id_user");
         localStorage.setItem("exited", "true");
-
         setPassedAuthorization(false);
     };
 
