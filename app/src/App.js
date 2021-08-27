@@ -48,6 +48,15 @@ function App() {
             });
     };
 
+    const exit = () => {
+        localStorage.removeItem("login");
+        localStorage.removeItem("password");
+        localStorage.removeItem("id_user");
+        localStorage.setItem("exited", "true");
+
+        setPassedAuthorization(false);
+    };
+
     return (
         <div className="App">
             {!passedAuthorization ? (
@@ -58,6 +67,7 @@ function App() {
                         <div style={{ marginBottom: 25 }}>
                             <h3>
                                 Вы вошли, как - {localStorage.getItem("login")}
+                                <button onClick={exit}>выйти</button>
                             </h3>
                         </div>
 
