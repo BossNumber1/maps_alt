@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 // import styles from "../Forms.module.css";
 
-const Register = ({ setPassedAuthorization }) => {
+const LoginForm = ({ setPassedAuthorization }) => {
     const authHandler = (e) => {
         e.preventDefault();
 
@@ -24,8 +24,8 @@ const Register = ({ setPassedAuthorization }) => {
                 ) {
                     localStorage.setItem("login", login);
                     localStorage.setItem("password", password);
-                    setPassedAuthorization(true);
                     localStorage.removeItem("exited");
+                    setPassedAuthorization(true);
                 } else {
                     alert("Неверные данные");
                 }
@@ -56,4 +56,4 @@ const Register = ({ setPassedAuthorization }) => {
     );
 };
 
-export default Register;
+export default LoginForm;

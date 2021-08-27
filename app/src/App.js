@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import AddPlacemark from "./components/AddPlacemark";
-import Auth from "./components/auth/Auth";
+import RegistrationForm from "./components/auth/RegistrationForm";
 import ListPlacemarks from "./components/ListPlacemarks";
 import YandexMap from "./components/YandexMap";
 import axios from "axios";
@@ -63,7 +63,9 @@ function App() {
     return (
         <div className="App">
             {!passedAuthorization ? (
-                <Auth setPassedAuthorization={setPassedAuthorization} />
+                <RegistrationForm
+                    setPassedAuthorization={setPassedAuthorization}
+                />
             ) : (
                 <div style={{ display: "flex" }}>
                     <div style={{ float: "left" }}>

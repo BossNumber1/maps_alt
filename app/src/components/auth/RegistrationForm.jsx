@@ -1,9 +1,8 @@
 import React from "react";
 import axios from "axios";
+import LoginForm from "./LoginForm";
 
-import Register from "./Register";
-
-function Auth({ setPassedAuthorization }) {
+function RegistrationForm({ setPassedAuthorization }) {
     const [showAuth, setShowAuth] = React.useState(false);
 
     React.useEffect(() => {
@@ -26,8 +25,8 @@ function Auth({ setPassedAuthorization }) {
             .post("http://localhost:80/getUserData/", {
                 login: login,
             })
-            .then((res) => {
-                if (res.data === "empty") {
+            .then((resultat) => {
+                if (resultat.data === "empty") {
                     axios
                         .post("http://localhost:80/auth/", {
                             login: login,
@@ -39,16 +38,17 @@ function Auth({ setPassedAuthorization }) {
                                     .post("http://localhost:80/getUserData/", {
                                         login: login,
                                     })
-                                    .then((res) => {
-                                        if (res.data !== "empty") {
+                                    .then((resultat) => {
+                                        if (resultat.data !== "empty") {
                                             let id_user = JSON.parse(
-                                                res.data
+                                                resultat.data
                                             ).id;
 
                                             localStorage.setItem(
                                                 "id_user",
                                                 id_user
                                             );
+
                                             setShowAuth(true);
                                         }
                                     });
@@ -62,7 +62,6 @@ function Auth({ setPassedAuthorization }) {
         <>
             {!showAuth ? (
                 <>
-                    {" "}
                     <h1>Регистрация</h1>
                     <p>В данном приложении можно сохранять места на карте.</p>
                     <form>
@@ -86,10 +85,10 @@ function Auth({ setPassedAuthorization }) {
                     </form>
                 </>
             ) : (
-                <Register setPassedAuthorization={setPassedAuthorization} />
+                <LoginForm setPassedAuthorization={setPassedAuthorization} />
             )}
         </>
     );
 }
 
-export default Auth;
+export default RegistrationForm;
