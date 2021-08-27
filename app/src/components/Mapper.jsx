@@ -1,7 +1,7 @@
 import React from "react";
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
-function Mapper({ placemarker }) {
+function Mapper({ placemarker, yohoo }) {
     const [currentLatitude, setLatitude] = React.useState(false);
     const [currentLongitude, setLongitude] = React.useState(false);
 
@@ -9,19 +9,25 @@ function Mapper({ placemarker }) {
         navigator.geolocation.getCurrentPosition((position) => {
             setLatitude(position.coords.latitude);
             setLongitude(position.coords.longitude);
-            debugger;
         });
         // 59.9293952;
         // 30.3497216;
     }, []);
+
+    React.useEffect(() => {
+        if (yohoo) {
+            setLatitude(yohoo[0]);
+            setLongitude(yohoo[1]);
+        }
+    }, [yohoo, currentLatitude, currentLongitude]);
 
     return (
         <>
             {currentLatitude ? (
                 <YMaps>
                     <Map
-                        defaultState={{
-                            center: [currentLatitude, currentLongitude],
+                        state={{
+                            center: [+currentLatitude, +currentLongitude],
                             zoom: 9,
                         }}
                     >

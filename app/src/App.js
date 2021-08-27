@@ -11,6 +11,7 @@ function App() {
     const [goodAuth, setGoodAuth] = React.useState(false);
     const [placemarker, setPlacemarker] = React.useState([]);
     const [hidePlm, setHidePlm] = React.useState(false);
+    const [yohoo, setYohoo] = React.useState(false);
 
     React.useEffect(() => {
         if (goodAuth) {
@@ -52,36 +53,42 @@ function App() {
             {!goodAuth ? (
                 <Auth setGoodAuth={setGoodAuth} />
             ) : (
-                <>
-                    <div style={{ marginBottom: 25 }}>
-                        <h3>Вы вошли, как - {localStorage.getItem("login")}</h3>
+                <div style={{ display: "flex" }}>
+                    <div style={{ float: "left" }}>
+                        <div style={{ marginBottom: 25 }}>
+                            <h3>
+                                Вы вошли, как - {localStorage.getItem("login")}
+                            </h3>
+                        </div>
+
+                        <Adder
+                            setNoTags={setNoTags}
+                            setPlacemarker={setPlacemarker}
+                            placemarker={placemarker}
+                        />
+
+                        <div style={{ marginBottom: 25 }}>
+                            {noTags
+                                ? noTags
+                                : placemarker.map((item, index) => (
+                                      <BalList
+                                          key={index}
+                                          name={item.name}
+                                          latitude={item.latitude}
+                                          longitude={item.longitude}
+                                          setNoTags={setNoTags}
+                                          noTags={noTags}
+                                          setHidePlm={setHidePlm}
+                                          hidePlm={hidePlm}
+                                          setYohoo={setYohoo}
+                                      />
+                                  ))}
+                        </div>
                     </div>
-
-                    <Adder
-                        setNoTags={setNoTags}
-                        setPlacemarker={setPlacemarker}
-                        placemarker={placemarker}
-                    />
-
-                    <div style={{ marginBottom: 25 }}>
-                        {noTags
-                            ? noTags
-                            : placemarker.map((item, index) => (
-                                  <BalList
-                                      key={index}
-                                      name={item.name}
-                                      latitude={item.latitude}
-                                      longitude={item.longitude}
-                                      setNoTags={setNoTags}
-                                      noTags={noTags}
-                                      setHidePlm={setHidePlm}
-                                      hidePlm={hidePlm}
-                                  />
-                              ))}
+                    <div style={{ float: "right" }}>
+                        <Mapper placemarker={placemarker} yohoo={yohoo} />
                     </div>
-
-                    <Mapper placemarker={placemarker} />
-                </>
+                </div>
             )}
         </div>
     );

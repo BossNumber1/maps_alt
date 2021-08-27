@@ -4,6 +4,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.placemark {
+    background-color: rgb(231, 156, 42);
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
 
 .App-logo {
     height: 40vmin;

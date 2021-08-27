@@ -9,6 +9,7 @@ function BalList({
     noTags,
     setHidePlm,
     hidePlm,
+    setYohoo,
 }) {
     const [show, setShow] = React.useState(false);
     const [nam, setNam] = React.useState(name || "");
@@ -69,9 +70,22 @@ function BalList({
                             <div style={{ display: "flex", marginBottom: 25 }}>
                                 {!show ? (
                                     <>
-                                        название {name}
-                                        ширина {shir}
-                                        долгота {dol}
+                                        <div
+                                            onClick={() =>
+                                                setYohoo([shir, dol])
+                                            }
+                                            className="placemark"
+                                        >
+                                            <div>
+                                                <b>Название</b>: {name}
+                                            </div>
+                                            <div>
+                                                <b>Ширина</b>: {shir}
+                                            </div>
+                                            <div>
+                                                <b>Долгота</b>: {dol}
+                                            </div>
+                                        </div>
                                         <form>
                                             <button
                                                 onClick={showForm}

@@ -61,7 +61,10 @@ function Auth({ setGoodAuth }) {
     return (
         <>
             <h1>Регистрация</h1>
-
+            <p>
+                В этом приложении вы можете сохранять места на карте и потом
+                смотреть дорогу к ним.
+            </p>
             <form>
                 <div>
                     <input type="text" id="login" placeholder="Логин" />
